@@ -1,0 +1,31 @@
+{
+    "name": "Lecture cartoon ",
+    "short_name": "Lecture cartoon ",
+    "description": "Generate a website where one can generate a cartoon lecture on a written speaker note.\nInclude various speaker voice options and various selections for the toon images to use.\nGive options to use slides during presentations or not and the slides to be generated from the speaker note by the system. No limit to the number of characters or words of the speaker notes.\nAlso give users options of adding their own voice for the toon to use or upload their own images to be used instead of the cartoon.\nUse high quality video graphics d sound quality while creating the lecture videos.\nToon to have a classroom environment. Voice must sound real and lip movement accurate with the words",
+    "start_url": "./",
+    "scope": "./",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#008eed",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "icons/icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}

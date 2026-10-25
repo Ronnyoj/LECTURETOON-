@@ -1,0 +1,558 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generate a website where one can generate a cartoon lecture on a written speaker note.
+Include various speaker voice options and various selections for the toon images to use.
+Give options to use slides during presentations or not and the slides to be generated from the speaker note by the system. No limit to the number of characters or words of the speaker notes.
+Also give users options of adding their own voice for the toon to use or upload their own images to be used instead of the cartoon.
+Use high quality video graphics d sound quality while creating the lecture videos.
+Toon to have a classroom environment. Voice must sound real and lip movement accurate with the words">
+    <meta name="author" content="">
+    <meta name="theme-color" content="#008eed">
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Lecture cartoon ">
+    <title>Lecture cartoon </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {}
+            }
+        }
+    </script>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        /* Dark mode support */
+        [data-theme="dark"] {
+            color-scheme: dark;
+        }
+        [data-theme="light"] {
+            color-scheme: light;
+        }
+    </style>
+    
+    <style>
+        /* Smooth scrolling for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body data-theme="light">
+    
+    <div id="app">
+        
+    <aside id="sidebar" class="sidebar" :class="{ 'show': sidebarOpen }">
+        <div class="sidebar-header">
+            <h4 class="sidebar-title">{{ projectName }}</h4>
+            <button class="sidebar-close" @click="closeSidebar" aria-label="Close sidebar">
+                <svg class="w-6 h-6"  fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#hero" class="sidebar-link" @click="closeSidebar"><span v-pre>Hero</span></a>
+                        <a href="#features" class="sidebar-link" @click="closeSidebar"><span v-pre>Features</span></a>
+                        <a href="#testimonials" class="sidebar-link" @click="closeSidebar"><span v-pre>Testimonials</span></a>
+                        <a href="#pricing" class="sidebar-link" @click="closeSidebar"><span v-pre>Pricing</span></a>
+                        <a href="#cta" class="sidebar-link" @click="closeSidebar"><span v-pre>CTA</span></a>
+                    <button @click="toggleDarkMode" class="ml-4 p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700">
+                        <svg class="w-6 h-6"  fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path v-if="!darkMode" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                            <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                    </button>
+        </nav>
+    </aside>
+
+    <button class="sidebar-toggle" @click="toggleSidebar" aria-label="Toggle sidebar">
+        <svg class="w-6 h-6"  fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+    </button>
+
+    <div class="sidebar-overlay" :class="{ 'show': sidebarOpen }" @click="closeSidebar"></div>
+        <div class="sidebar-layout">
+        <main>
+            
+    <section id="hero" class="relative bg-gradient-to-br from-blue-600 to-purple-700 text-white" :style="{ backgroundColor: '#008eed' }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
+                        Welcome to {{ projectName }}
+                    </h1>
+                    <p class="text-lg md:text-xl opacity-90">
+                        <span v-pre>Generate a website where one can generate a cartoon lecture on a written speaker note.
+Include various speaker voice options and various selections for the toon images to use.
+Give options to use slides during presentations or not and the slides to be generated from the speaker note by the system. No limit to the number of characters or words of the speaker notes.
+Also give users options of adding their own voice for the toon to use or upload their own images to be used instead of the cartoon.
+Use high quality video graphics d sound quality while creating the lecture videos.
+Toon to have a classroom environment. Voice must sound real and lip movement accurate with the words</span>
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors shadow-lg inline-block" @click="handleGetStarted">
+                            Get Started
+                        </button>
+                        <button class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors inline-block" @click="handleLearnMore">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-8 md:mt-0">
+                    <div class="bg-white rounded-2xl p-8 text-center text-gray-900 shadow-2xl">
+                        <h3 class="text-xl font-bold mb-2">Hero Image</h3>
+                        <p class="text-gray-600">Placeholder for your image</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4"><span v-pre>Features</span></h2>
+                <p class="text-xl text-gray-600">Everything you need to build modern web applications</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div v-for="feature in features" :key="feature.id" class="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow">
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto rounded-full flex items-center justify-center text-2xl mb-4" :style="{ backgroundColor: feature.color }">
+                            <i :class="feature.icon"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-gray-900">{{ feature.title }}</h3>
+                        <p class="text-gray-600">{{ feature.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="testimonials" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12"><span v-pre>Testimonials</span></h2>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div v-for="testimonial in testimonials" :key="testimonial.id" class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="mb-4">
+                        <span v-for="n in 5" :key="n" class="text-yellow-400 text-xl">⭐</span>
+                    </div>
+                    <p class="text-gray-600 italic mb-4">{{ testimonial.text }}</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold mr-3" :style="{ backgroundColor: testimonial.color }">
+                            {{ testimonial.initials }}
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900">{{ testimonial.name }}</h4>
+                            <p class="text-sm text-gray-500">{{ testimonial.position }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="pricing" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4"><span v-pre>Pricing</span></h2>
+                <p class="text-xl text-gray-600">Select the perfect plan for your needs</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div
+                    v-for="plan in pricingPlans"
+                    :key="plan.id"
+                >
+                    <div :class="plan.featured ? 'bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-2xl shadow-2xl p-8 text-center transform scale-105 relative' : 'bg-white rounded-2xl shadow-lg p-8 text-center relative'">
+                        <div v-if="plan.featured" class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-yellow-400 text-gray-900 px-4 py-1 rounded-full text-sm font-bold">Popular</div>
+
+                        <h3 class="text-2xl font-bold mb-4" :class="plan.featured ? 'text-white' : 'text-gray-900'">{{ plan.name }}</h3>
+                        <div class="mb-6">
+                            <span v-if="plan.price === 'FREE'" class="text-4xl font-extrabold" :class="plan.featured ? 'text-white' : 'text-gray-900'">FREE</span>
+                            <span v-else>
+                                <span class="text-5xl font-extrabold" :class="plan.featured ? 'text-white' : 'text-gray-900'">${{ plan.price }}</span>
+                                <span class="text-xl" :class="plan.featured ? 'text-blue-100' : 'text-gray-500'">/month</span>
+                            </span>
+                        </div>
+
+                        <ul class="space-y-4 mb-8">
+                            <li v-for="feature in plan.features" :key="feature" class="flex items-start" :class="plan.featured ? 'text-blue-50' : 'text-gray-700'">
+                                <span class="mr-2">✓</span>
+                                <span>{{ feature }}</span>
+                            </li>
+                        </ul>
+
+                        <button
+                            :class="plan.featured ? 'bg-white text-blue-600 hover:bg-blue-50' : 'bg-blue-600 text-white hover:bg-blue-700'"
+                            class="w-full py-3 px-6 rounded-lg font-semibold transition-colors"
+                            @click="handleSelectPlan(plan.id)"
+                        >
+                            {{ plan.buttonText }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="cta" class="cta-section" :style="{ backgroundColor: '#008eed' }">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Get Started?</h2>
+                <p>Join thousands of users who are already building amazing projects</p>
+                <div class="cta-actions">
+                    <button class="btn btn-light" @click="handleStartNow">Start Now</button>
+                    <button class="btn btn-outline-light" @click="handleContactUs">Contact Us</button>
+                </div>
+            </div>
+        </div>
+    </section>
+        </main>
+
+        
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h5>{{ projectName }}</h5>
+                    <p><span v-pre>Generate a website where one can generate a cartoon lecture on a written speaker note.
+Include various speaker voice options and various selections for the toon images to use.
+Give options to use slides during presentations or not and the slides to be generated from the speaker note by the system. No limit to the number of characters or words of the speaker notes.
+Also give users options of adding their own voice for the toon to use or upload their own images to be used instead of the cartoon.
+Use high quality video graphics d sound quality while creating the lecture videos.
+Toon to have a classroom environment. Voice must sound real and lip movement accurate with the words</span></p>
+                </div>
+
+                <div class="footer-section">
+                    <h6>Links</h6>
+                    <ul>
+                        <li><a href="#hero"><span v-pre>Hero</span></a></li>
+                        <li><a href="#features"><span v-pre>Features</span></a></li>
+                        <li><a href="#testimonials"><span v-pre>Testimonials</span></a></li>
+                        <li><a href="#pricing"><span v-pre>Pricing</span></a></li>
+                        <li><a href="#cta"><span v-pre>CTA</span></a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h6>Connect</h6>
+                    <div class="social-links">
+                        <a v-for="social in socialLinks" :key="social.name" :href="social.url" :title="social.name">
+                            {{ social.icon }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 {{ projectName }}. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+        </div>
+    </div>
+        <script src="https://unpkg.com/aos@2.3.4/dist/aos.css"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.30.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.45.2/dist/apexcharts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+
+    <script type="module">
+        const { createApp, ref, reactive, computed, onMounted } = Vue;
+
+        const app = createApp({
+            setup() {
+                const projectName = ref('Lecture cartoon ');
+                const mobileMenuOpen = ref(false);
+                
+            const darkMode = ref(localStorage.getItem('theme') === 'dark');
+
+            const toggleDarkMode = () => {
+                darkMode.value = !darkMode.value;
+                document.body.setAttribute('data-theme', darkMode.value ? 'dark' : 'light');
+                localStorage.setItem('theme', darkMode.value ? 'dark' : 'light');
+            };
+
+            // Apply saved theme
+            onMounted(() => {
+                document.body.setAttribute('data-theme', darkMode.value ? 'dark' : 'light');
+            });
+                const sidebarOpen = ref(false);
+
+                const toggleSidebar = () => {
+                    sidebarOpen.value = !sidebarOpen.value;
+                };
+
+                const closeSidebar = () => {
+                    sidebarOpen.value = false;
+                };
+                // Hero section methods
+                const handleGetStarted = () => {
+                    console.log('Get started clicked');
+                    // Add your navigation logic here
+                };
+
+                const handleLearnMore = () => {
+                    console.log('Learn more clicked');
+                    // Add your navigation logic here
+                };
+                // Features data
+                const features = ref([
+                    {
+                        id: 1,
+                        title: 'Fast Performance',
+                        description: 'Lightning-fast loading times and smooth interactions',
+                        icon: '⚡',
+                        color: '#008eed'
+                    },
+                    {
+                        id: 2,
+                        title: 'Secure',
+                        description: 'Built with security best practices in mind',
+                        icon: '🔒',
+                        color: '#3b82f6'
+                    },
+                    {
+                        id: 3,
+                        title: 'Responsive',
+                        description: 'Works perfectly on all devices and screen sizes',
+                        icon: '📱',
+                        color: '#60a5fa'
+                    }
+                ]);
+                // CTA section methods
+                const handleStartNow = () => {
+                    console.log('Start now clicked');
+                };
+
+                const handleContactUs = () => {
+                    console.log('Contact us clicked');
+                };
+                // Footer social links
+                const socialLinks = ref([
+                    { name: 'Twitter', url: '#', icon: '🐦' },
+                    { name: 'Facebook', url: '#', icon: '📘' },
+                    { name: 'LinkedIn', url: '#', icon: '💼' }
+                ]);
+                // Testimonials data
+                const testimonials = ref([
+                    {
+                        id: 1,
+                        text: 'Excellent service and outstanding results. Highly recommended!',
+                        name: 'John Doe',
+                        position: 'CEO, Company Inc',
+                        initials: 'JD',
+                        color: '#008eed'
+                    },
+                    {
+                        id: 2,
+                        text: 'Professional team that delivers on their promises. Great experience!',
+                        name: 'Jane Smith',
+                        position: 'Founder, Startup Co',
+                        initials: 'JS',
+                        color: '#3b82f6'
+                    },
+                    {
+                        id: 3,
+                        text: 'Amazing work! They exceeded our expectations in every way.',
+                        name: 'Mike Johnson',
+                        position: 'CTO, Tech Ltd',
+                        initials: 'MJ',
+                        color: '#60a5fa'
+                    }
+                ]);
+                // Pricing data
+                const pricingPlans = ref([
+                    {
+                        id: 'basic',
+                        name: 'Basic',
+                        price: 'FREE',
+                        features: ['Feature 1', 'Feature 2', 'Feature 3'],
+                        buttonText: 'Get Started',
+                        featured: false
+                    },
+                    {
+                        id: 'pro',
+                        name: 'Pro',
+                        price: '49',
+                        features: ['All Basic features', 'Feature 4', 'Feature 5'],
+                        buttonText: 'Get Started',
+                        featured: true
+                    },
+                    {
+                        id: 'enterprise',
+                        name: 'Enterprise',
+                        price: '99',
+                        features: ['All Pro features', 'Feature 6', 'Priority support'],
+                        buttonText: 'Contact Us',
+                        featured: false
+                    }
+                ]);
+
+                const handleSelectPlan = (planId) => {
+                    console.log('Selected plan:', planId);
+                    // Add your plan selection logic here
+                };
+
+                const toggleMobileMenu = () => {
+                    mobileMenuOpen.value = !mobileMenuOpen.value;
+                };
+
+                return {
+                    projectName,
+                    mobileMenuOpen,
+                    toggleMobileMenu,
+                    sidebarOpen,
+                    toggleSidebar,
+                    closeSidebar,
+                    darkMode,
+                    toggleDarkMode,
+                    handleGetStarted,
+                    handleLearnMore,
+                    features,
+                    handleStartNow,
+                    handleContactUs,
+                    socialLinks,
+                    testimonials,
+                    pricingPlans,
+                    handleSelectPlan
+                };
+            }
+        });
+
+        app.mount('#app');
+    </script>
+
+    <script>
+        // Initialize AOS (Animate On Scroll)
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+    </script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(reg => console.log('Service Worker registered'))
+                .catch(err => console.log('Service Worker registration failed'));
+        }
+    </script>
+
+    <script>
+        // Dark mode toggle
+        function toggleDarkMode() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.body.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <script>
+        // Mobile menu toggle for Tailwind
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton?.addEventListener('click', function() {
+                mobileMenu?.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when navigation link is clicked
+            const mobileNavLinks = mobileMenu?.querySelectorAll('a');
+            mobileNavLinks?.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu?.classList.add('hidden');
+                });
+            });
+        });
+    </script>
+
+    <script>
+        // Sidebar toggle for mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebarClose = document.getElementById('sidebarClose');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            // Toggle sidebar on button click
+            sidebarToggle?.addEventListener('click', function() {
+                sidebar?.classList.add('show');
+                sidebarOverlay?.classList.add('show');
+            });
+
+            // Close sidebar on close button click
+            sidebarClose?.addEventListener('click', function() {
+                sidebar?.classList.remove('show');
+                sidebarOverlay?.classList.remove('show');
+            });
+
+            // Close sidebar when clicking overlay
+            sidebarOverlay?.addEventListener('click', function() {
+                sidebar?.classList.remove('show');
+                sidebarOverlay?.classList.remove('show');
+            });
+
+            // Close sidebar when clicking a navigation link on mobile
+            const sidebarLinks = sidebar?.querySelectorAll('a');
+            sidebarLinks?.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth < 768) {
+                        sidebar?.classList.remove('show');
+                        sidebarOverlay?.classList.remove('show');
+                    }
+                });
+            });
+
+            // Smooth scroll for sidebar links
+            sidebarLinks?.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            target.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>
